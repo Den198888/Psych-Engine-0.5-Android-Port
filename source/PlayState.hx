@@ -3007,6 +3007,7 @@ class PlayState extends MusicBeatState
 							songSpeedTween = null;
 						}
 					});
+	          }
 	
 			case 'Zoom Amount':
 				var zoom:Float = Std.parseFloat(value1);
