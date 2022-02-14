@@ -1348,6 +1348,7 @@ class PlayState extends MusicBeatState
 			add(bg);
                 }
             }
+         }
             video.setGraphicSize(FlxG.width);
             video.updateHitbox();
             add(video);
