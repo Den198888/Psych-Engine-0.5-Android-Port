@@ -1304,65 +1304,6 @@ class PlayState extends MusicBeatState
 		char.x += char.positionArray[0];
 		char.y += char.positionArray[1];
 	}
-	
-	public function videoBG(name:String):Void { //this shit made by sirox
-		var existsFile:Bool = false;
-		var formattedPath:String = #if MODS_ALLOWED Paths.modFolders('videos/' + name + '.webm'); #else ''; #end
-		#if sys
-		if(FileSystem.exists(formattedPath)) {
-			existsFile = true;
-		}
-		#end
-		
-		if(!existsFile) {
-			formattedPath = Paths.video(name);
-			if(FileSystem.exists(formattedPath)) {
-				existsFile = true;
-			}
-		}
-		return;
-	}
-	
-	public function startVideo(name:String):Void {
-		var foundFile:Bool = false;
-		var fileName:String = #if MODS_ALLOWED Paths.modFolders('videos/' + name + '.webm'); #else ''; #end
-		#if sys
-		if(FileSystem.exists(fileName)) {
-			foundFile = true;
-		}
-		#end
-
-		if(!foundFile) {
-			fileName = Paths.video(name);
-			if(FileSystem.exists(fileName)) {
-				foundFile = true;
-			}
-		}
-
-		if(foundFile) {
-			inCutscene = true;
-
-			var bg = new FlxSprite(-FlxG.width, -FlxG.height).makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.BLACK);
-			bg.scrollFactor.set();
-			bg.cameras = [camHUD];
-			add(bg);
-                }
-            }
-         }
-            video.setGraphicSize(FlxG.width);
-            video.updateHitbox();
-            add(video);
-            video.play();
-			return;
-		} else {
-			FlxG.log.warn('Couldnt find video file: ' + fileName);
-		}
-		if(endingSong) {
-			endSong();
-		} else {
-			startCountdown();
-		}
-	}
 
 	var dialogueCount:Int = 0;
 	//You don't have to add a song, just saying. You can just do "startDialogue(dialogueJson);" and it should work
