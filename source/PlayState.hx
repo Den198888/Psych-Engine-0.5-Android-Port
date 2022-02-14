@@ -3014,9 +3014,112 @@ class PlayState extends MusicBeatState
 
 				defaultCamZoom = zoom;
 		}
+		
+		case 'Celebi':
+		              doCelebi(Std.parseFloat(value1));
+		
+		}
 		callOnLuas('onEvent', [eventName, value1, value2]);
 	}
+	
+	var reverseXY:Bool = false;
 
+	// I fucking hate math
+	final bullshitArray:Array<Int> = [-2, -1, 1, 2];
+
+    function doCelebi(newMax:Float):Void {
+		if (!ClientPrefs.pussyMode) {
+			maxHealth = newMax;
+			remove(healthBar);
+			healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8) - Std.int(healthBar.width * (maxHealth / 2)) , Std.int(healthBarBG.height - 8), this,
+				'health', maxHealth, 2);
+			healthBar.scrollFactor.set();
+			healthBar.visible = !ClientPrefs.hideHud;
+			remove(iconP1);
+			remove(iconP2);
+			add(healthBar);
+			add(iconP1);
+			add(iconP2);
+			healthBar.cameras = [camHUD];
+			reloadHealthBarColors();
+	
+			var celebi:FlxSprite = new FlxSprite(0 + FlxG.random.int(-150, -300), 0 + FlxG.random.int(-200, 200));
+			celebi.frames = Paths.getSparrowAtlas('lostSilver/Celebi_Assets', 'shared');
+			celebi.animation.addByPrefix('spawn', 'Celebi Spawn Full', 24, false);
+			celebi.animation.addByIndices('reverseSpawn', 'Celebi Spawn Full', [14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0],'', 24, false);
+			celebi.animation.addByPrefix('idle', 'Celebi Idle', 24, false);
+			celebi.animation.play('spawn');
+			celebi.animation.finishCallback = function (name:String) {
+				celebi.animation.play('idle');
+				var note:FlxSprite = new FlxSprite(celebi.x + FlxG.random.int(70, 100), celebi.y + FlxG.random.int(-50, 50));
+				note.frames = Paths.getSparrowAtlas('lostSilver/Note_asset', 'shared');
+				note.animation.addByPrefix('spawn', 'Note Full', 24, false);
+				note.animation.play('spawn');
+				note.animation.finishCallback = function (name:String) {
+					remove(note);
+				};
+				add(note);
+				FlxTween.tween(note, {x: note.x + FlxG.random.int(100, 190), y:FlxG.random.int(-80, 140)}, (Conductor.stepCrochet * 8 / 1000), {ease: FlxEase.quadOut});
+				celebi.animation.finishCallback = null;
+
+				if (ClientPrefs.hellMode)	{
+					for (i in 0...3) {
+						var note:FlxSprite = new FlxSprite(celebi.x + FlxG.random.int(70, 100), celebi.y + FlxG.random.int(-50, 50));
+						note.frames = Paths.getSparrowAtlas('lostSilver/Note_asset', 'shared');
+						note.animation.addByPrefix('spawn', 'Note Full', 24, false);
+						note.animation.play('spawn');
+						note.animation.finishCallback = function (name:String) {
+							remove(note);
+						};
+						add(note);
+						FlxTween.tween(note, {x: note.x + FlxG.random.int(100, 190), y:FlxG.random.int(-80, 140)}, (Conductor.stepCrochet * 8 / 1000), {ease: FlxEase.quadOut});
+						celebi.animation.finishCallback = null;
+					}
+				}
+			};
+			celebiLayer.add(celebi);
+			
+	
+			
+			new FlxTimer().start(Conductor.stepCrochet * 8 / 1000, function(tmr:FlxTimer)
+			{
+				var note:FlxSprite = new FlxSprite(celebi.x + FlxG.random.int(70, 100), celebi.y + FlxG.random.int(-50, 50));
+				note.frames = Paths.getSparrowAtlas('lostSilver/Note_asset', 'shared');
+				note.animation.addByPrefix('spawn', 'Note Full', 24, false);
+				note.animation.play('spawn');
+				note.animation.finishCallback = function (name:String) {
+					remove(note);
+				};
+				add(note);
+				FlxTween.tween(note, {x: note.x + FlxG.random.int(100, 190), y:FlxG.random.int(-80, 140)}, (Conductor.stepCrochet * 8 / 1000), {ease: FlxEase.quadOut});
+
+				if (ClientPrefs.hellMode)	{
+					for (i in 0...3) {
+						var note:FlxSprite = new FlxSprite(celebi.x + FlxG.random.int(70, 100), celebi.y + FlxG.random.int(-50, 50));
+						note.frames = Paths.getSparrowAtlas('lostSilver/Note_asset', 'shared');
+						note.animation.addByPrefix('spawn', 'Note Full', 24, false);
+						note.animation.play('spawn');
+						note.animation.finishCallback = function (name:String) {
+							remove(note);
+						};
+						add(note);
+						FlxTween.tween(note, {x: note.x + FlxG.random.int(100, 190), y:FlxG.random.int(-80, 140)}, (Conductor.stepCrochet * 8 / 1000), {ease: FlxEase.quadOut});
+						celebi.animation.finishCallback = null;
+					}
+				}
+
+			});
+	
+			new FlxTimer().start(Conductor.stepCrochet * 16 / 1000, function(tmr:FlxTimer)
+			{
+				celebi.animation.play('reverseSpawn', true);
+				celebi.animation.finishCallback = function (name:String) {
+					celebiLayer.remove(celebi);
+				};
+			});
+		}
+	
+	}
 	function moveCameraSection(?id:Int = 0):Void {
 		if(SONG.notes[id] == null) return;
 
