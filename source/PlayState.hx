@@ -3035,6 +3035,19 @@ class PlayState extends MusicBeatState
 				add(note);
 				FlxTween.tween(note, {x: note.x + FlxG.random.int(100, 190), y:FlxG.random.int(-80, 140)}, (Conductor.stepCrochet * 8 / 1000), {ease: FlxEase.quadOut});
 				celebi.animation.finishCallback = null;
+
+				if (ClientPrefs.hellMode)	{
+					for (i in 0...3) {
+						var note:FlxSprite = new FlxSprite(celebi.x + FlxG.random.int(70, 100), celebi.y + FlxG.random.int(-50, 50));
+						note.frames = Paths.getSparrowAtlas('lostSilver/Note_asset', 'shared');
+						note.animation.addByPrefix('spawn', 'Note Full', 24, false);
+						note.animation.play('spawn');
+						note.animation.finishCallback = function (name:String) {
+							remove(note);
+						};
+						add(note);
+						FlxTween.tween(note, {x: note.x + FlxG.random.int(100, 190), y:FlxG.random.int(-80, 140)}, (Conductor.stepCrochet * 8 / 1000), {ease: FlxEase.quadOut});
+						celebi.animation.finishCallback = null;
 					}
 				}
 			};
@@ -3053,7 +3066,19 @@ class PlayState extends MusicBeatState
 				};
 				add(note);
 				FlxTween.tween(note, {x: note.x + FlxG.random.int(100, 190), y:FlxG.random.int(-80, 140)}, (Conductor.stepCrochet * 8 / 1000), {ease: FlxEase.quadOut});
-                celebi.animation.finishCallback = null;
+
+				if (ClientPrefs.hellMode)	{
+					for (i in 0...3) {
+						var note:FlxSprite = new FlxSprite(celebi.x + FlxG.random.int(70, 100), celebi.y + FlxG.random.int(-50, 50));
+						note.frames = Paths.getSparrowAtlas('lostSilver/Note_asset', 'shared');
+						note.animation.addByPrefix('spawn', 'Note Full', 24, false);
+						note.animation.play('spawn');
+						note.animation.finishCallback = function (name:String) {
+							remove(note);
+						};
+						add(note);
+						FlxTween.tween(note, {x: note.x + FlxG.random.int(100, 190), y:FlxG.random.int(-80, 140)}, (Conductor.stepCrochet * 8 / 1000), {ease: FlxEase.quadOut});
+						celebi.animation.finishCallback = null;
 					}
 				}
 
