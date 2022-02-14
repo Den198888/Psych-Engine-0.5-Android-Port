@@ -3017,7 +3017,6 @@ class PlayState extends MusicBeatState
 		
 		case 'Celebi':
 		              doCelebi(Std.parseFloat(value1));
-		
 		}
 		callOnLuas('onEvent', [eventName, value1, value2]);
 	}
