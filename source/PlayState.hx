@@ -1320,23 +1320,6 @@ class PlayState extends MusicBeatState
 				existsFile = true;
 			}
 		}
-		if(existsFile) {
-			var video = new WebmPlayerS(formattedPath, true);
-            video.startcallback = () -> {
-            	add(video);
-            	remove(dad);
-                remove(boyfriend);
-                remove(gf);
-                add(dad);
-                add(boyfriend);
-                add(gf);
-            }
-            video.setGraphicSize(FlxG.width);
-            video.updateHitbox();
-            video.play();
-		} else {
-			FlxG.log.warn('Couldnt find video file: ' + formattedPath);
-		}
 		return;
 	}
 	
@@ -1363,15 +1346,6 @@ class PlayState extends MusicBeatState
 			bg.scrollFactor.set();
 			bg.cameras = [camHUD];
 			add(bg);
-
-			var video = new WebmPlayerS(fileName, true);
-            video.endcallback = () -> {
-                remove(video);
-                remove(bg);
-                if(endingSong) {
-                    endSong();
-                } else {
-                    startCountdown();
                 }
             }
             video.setGraphicSize(FlxG.width);
