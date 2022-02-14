@@ -81,7 +81,8 @@ class ChartingState extends MusicBeatState
 		['Screen Shake', "Value 1: Camera shake\nValue 2: HUD shake\n\nEvery value works as the following example: \"1, 0.05\".\nThe first number (1) is the duration.\nThe second number (0.05) is the intensity."],
 		['Change Character', "Value 1: Character to change (Dad, BF, GF)\nValue 2: New character's name"],
 		['Change Scroll Speed', "Value 1: Target value\nValue 2: Time it takes to change fully"],
-		['Zoom Amount', "Value 1: Changes the \"defaultCamZoom Used for big characters sprite\""]
+		['Zoom Amount', "Value 1: Changes the \"defaultCamZoom Used for big characters sprite\""],
+		['Celebi', 'Value 1: max health (somewhere between 0 - 2), 0 being max health']
 	];
 
 	var _file:FileReference;
