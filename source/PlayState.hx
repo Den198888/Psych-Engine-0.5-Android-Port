@@ -1305,53 +1305,18 @@ class PlayState extends MusicBeatState
 		char.y += char.positionArray[1];
 	}
 	
-	public function videoBG(name:String):Void { //this shit made by sirox
-		var existsFile:Bool = false;
-		var formattedPath:String = #if MODS_ALLOWED Paths.modFolders('videos/' + name + '.webm'); #else ''; #end
-		#if sys
-		if(FileSystem.exists(formattedPath)) {
-			existsFile = true;
-		}
-		#end
-		
-		if(!existsFile) {
-			formattedPath = Paths.video(name);
-			if(FileSystem.exists(formattedPath)) {
-				existsFile = true;
-			}
-		}
-		if(existsFile) {
-			var video = new WebmPlayerS(formattedPath, true);
-            video.startcallback = () -> {
-            	add(video);
-            	remove(dad);
-                remove(boyfriend);
-                remove(gf);
-                add(dad);
-                add(boyfriend);
-                add(gf);
-            }
-            video.setGraphicSize(FlxG.width);
-            video.updateHitbox();
-            video.play();
-		} else {
-			FlxG.log.warn('Couldnt find video file: ' + formattedPath);
-		}
-		return;
-	}
-	
 	public function startVideo(name:String):Void {
 		var foundFile:Bool = false;
-		var fileName:String = #if MODS_ALLOWED Paths.modFolders('videos/' + name + '.webm'); #else ''; #end
+		var fileName:String = 'mods/videos/' + name + '.html';
 		#if sys
-		if(FileSystem.exists(fileName)) {
+		if(FileSystem.exists(Main.getDataPath + fileName)) {
 			foundFile = true;
 		}
 		#end
 
 		if(!foundFile) {
 			fileName = Paths.video(name);
-			if(FileSystem.exists(fileName)) {
+			if(FileSystem.exists(Main.getDataPath + fileName)) {
 				foundFile = true;
 			}
 		}
@@ -1364,20 +1329,16 @@ class PlayState extends MusicBeatState
 			bg.cameras = [camHUD];
 			add(bg);
 
-			var video = new WebmPlayerS(fileName, true);
-            video.endcallback = () -> {
-                remove(video);
-                remove(bg);
-                if(endingSong) {
-                    endSong();
-                } else {
-                    startCountdown();
-                }
-            }
-            video.setGraphicSize(FlxG.width);
-            video.updateHitbox();
-            add(video);
-            video.play();
+			var video:BrowserVideoPlayer = new BrowserVideoPlayer(fileName);
+                        (video).finishCallback = function() 
+                        {
+                                remove(bg);
+				if(endingSong) {
+					endSong();
+				} else {
+					startCountdown();
+				}
+                        }
 			return;
 		} else {
 			FlxG.log.warn('Couldnt find video file: ' + fileName);
