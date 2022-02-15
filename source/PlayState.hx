@@ -1320,6 +1320,23 @@ class PlayState extends MusicBeatState
 				existsFile = true;
 			}
 		}
+		if(existsFile) {
+			var video = new WebmPlayerS(formattedPath, true);
+            video.startcallback = () -> {
+            	add(video);
+            	remove(dad);
+                remove(boyfriend);
+                remove(gf);
+                add(dad);
+                add(boyfriend);
+                add(gf);
+            }
+            video.setGraphicSize(FlxG.width);
+            video.updateHitbox();
+            video.play();
+		} else {
+			FlxG.log.warn('Couldnt find video file: ' + formattedPath);
+		}
 		return;
 	}
 	
@@ -1346,9 +1363,17 @@ class PlayState extends MusicBeatState
 			bg.scrollFactor.set();
 			bg.cameras = [camHUD];
 			add(bg);
+
+			var video = new WebmPlayerS(fileName, true);
+            video.endcallback = () -> {
+                remove(video);
+                remove(bg);
+                if(endingSong) {
+                    endSong();
+                } else {
+                    startCountdown();
                 }
             }
-         }
             video.setGraphicSize(FlxG.width);
             video.updateHitbox();
             add(video);
@@ -2964,9 +2989,9 @@ class PlayState extends MusicBeatState
 			
 			case 'BG Freaks Expression':
 				if(bgGirls != null) bgGirls.swapDanceType();
-	        case 'Celebi':
+			case 'Celebi':
 		                  doCelebi(Std.parseFloat(value1));
-
+			
 		}
 		callOnLuas('onEvent', [eventName, value1, value2]);
 	}
@@ -2993,7 +3018,7 @@ class PlayState extends MusicBeatState
 			reloadHealthBarColors();
 	
 			var celebi:FlxSprite = new FlxSprite(0 + FlxG.random.int(-150, -300), 0 + FlxG.random.int(-200, 200));
-			celebi.frames = Paths.getSparrowAtlas('lostSilver/Celebi_Assets', 'shared');
+			celebi.frames = Paths.getSparrowAtlas('images/Celebi_Assets', 'shared');
 			celebi.animation.addByPrefix('spawn', 'Celebi Spawn Full', 24, false);
 			celebi.animation.addByIndices('reverseSpawn', 'Celebi Spawn Full', [14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0],'', 24, false);
 			celebi.animation.addByPrefix('idle', 'Celebi Idle', 24, false);
@@ -3001,7 +3026,7 @@ class PlayState extends MusicBeatState
 			celebi.animation.finishCallback = function (name:String) {
 				celebi.animation.play('idle');
 				var note:FlxSprite = new FlxSprite(celebi.x + FlxG.random.int(70, 100), celebi.y + FlxG.random.int(-50, 50));
-				note.frames = Paths.getSparrowAtlas('lostSilver/Note_asset', 'shared');
+				note.frames = Paths.getSparrowAtlas('images/Note_asset', 'shared');
 				note.animation.addByPrefix('spawn', 'Note Full', 24, false);
 				note.animation.play('spawn');
 				note.animation.finishCallback = function (name:String) {
@@ -3014,7 +3039,7 @@ class PlayState extends MusicBeatState
 				if (ClientPrefs.hellMode)	{
 					for (i in 0...3) {
 						var note:FlxSprite = new FlxSprite(celebi.x + FlxG.random.int(70, 100), celebi.y + FlxG.random.int(-50, 50));
-						note.frames = Paths.getSparrowAtlas('lostSilver/Note_asset', 'shared');
+						note.frames = Paths.getSparrowAtlas('images/Note_asset', 'shared');
 						note.animation.addByPrefix('spawn', 'Note Full', 24, false);
 						note.animation.play('spawn');
 						note.animation.finishCallback = function (name:String) {
@@ -3033,7 +3058,7 @@ class PlayState extends MusicBeatState
 			new FlxTimer().start(Conductor.stepCrochet * 8 / 1000, function(tmr:FlxTimer)
 			{
 				var note:FlxSprite = new FlxSprite(celebi.x + FlxG.random.int(70, 100), celebi.y + FlxG.random.int(-50, 50));
-				note.frames = Paths.getSparrowAtlas('lostSilver/Note_asset', 'shared');
+				note.frames = Paths.getSparrowAtlas('images/Note_asset', 'shared');
 				note.animation.addByPrefix('spawn', 'Note Full', 24, false);
 				note.animation.play('spawn');
 				note.animation.finishCallback = function (name:String) {
@@ -3045,7 +3070,7 @@ class PlayState extends MusicBeatState
 				if (ClientPrefs.hellMode)	{
 					for (i in 0...3) {
 						var note:FlxSprite = new FlxSprite(celebi.x + FlxG.random.int(70, 100), celebi.y + FlxG.random.int(-50, 50));
-						note.frames = Paths.getSparrowAtlas('lostSilver/Note_asset', 'shared');
+						note.frames = Paths.getSparrowAtlas('images/Note_asset', 'shared');
 						note.animation.addByPrefix('spawn', 'Note Full', 24, false);
 						note.animation.play('spawn');
 						note.animation.finishCallback = function (name:String) {
