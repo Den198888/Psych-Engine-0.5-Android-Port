@@ -681,6 +681,8 @@ class PlayState extends MusicBeatState
 		}
 
 		add(gfGroup);
+		celebiLayer = new FlxTypedGroup<FlxSprite>();
+		add(celebiLayer);
 
 		// Shitty layering but whatev it works LOL
 		if (curStage == 'limo')
