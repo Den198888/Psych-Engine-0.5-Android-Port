@@ -69,17 +69,6 @@ class HealthIcon extends FlxSprite
 
 			animation.add(char, [0, 1, 2], 0, false, isPlayer);
 			animation.play(char);
-			updateHitbox();
-	       }
-			this.char = char;
-
-			updateHitbox();
-			if (char == 'scott') {
-				setGraphicSize(Std.int(width * 0.6));
-				updateHitbox();
-			}
-			initialWidth = width;
-			initialHeight = height;
 		
 			antialiasing = ClientPrefs.globalAntialiasing;
 			if(char.endsWith('-pixel')) {
@@ -95,6 +84,17 @@ class HealthIcon extends FlxSprite
 		offset.x = iconOffsets[0];
 		offset.y = iconOffsets[1];
 	}
+	updateHitbox();
+	}
+	 this.char = char;
+
+			updateHitbox();
+			if (char == 'scott') {
+				setGraphicSize(Std.int(width * 0.6));
+				updateHitbox();
+			}
+			initialWidth = width;
+			initialHeight = height;
 
 	public function getCharacter():String {
 		return char;
