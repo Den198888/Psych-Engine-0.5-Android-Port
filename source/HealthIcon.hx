@@ -67,11 +67,12 @@ class HealthIcon extends FlxSprite
 			antialiasing = ClientPrefs.globalAntialiasing;
 			if(char.endsWith('-pixel')) {
 				antialiasing = false;
-			}
-		}
-	}
-
-	override function updateHitbox()
+			 }
+		 }
+	 }
+}
+	
+    override function updateHitbox()
 	{
 		super.updateHitbox();
 		offset.x = iconOffsets[0];
