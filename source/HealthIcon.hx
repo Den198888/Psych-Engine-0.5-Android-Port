@@ -86,6 +86,7 @@ class HealthIcon extends FlxSprite
 	}
 	updateHitbox();
 	}
+}
 	 this.char = char;
 
 			updateHitbox();
