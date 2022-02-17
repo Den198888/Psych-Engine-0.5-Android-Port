@@ -37,6 +37,17 @@ class HealthIcon extends FlxSprite
 	private var iconOffsets:Array<Float> = [0, 0];
 	public function changeIcon(char:String) {
 		if(this.char != char) {
+		    offsetX = 0;
+			offsetY = 0;
+			switch (char) {
+			    case 'scott':
+					// taken from hypnos code sory Plsss I DONT PUT ME IN JAIL :sob:
+				    var file:FlxAtlasFrames = Paths.getSparrowAtlas('icons/Scott Animated');
+					frames = file;
+					
+					animation.addByPrefix(char, 'Scott Icon', 27, true);
+					animation.play(char);
+		default:
 			var name:String = 'icons/' + char;
 			if(!Paths.fileExists('images/' + name + '.png', IMAGE)) name = 'icons/icon-' + char; //Older versions of psych engine's support
 			if(!Paths.fileExists('images/' + name + '.png', IMAGE)) name = 'icons/icon-face'; //Prevents crash from missing icon
