@@ -52,8 +52,11 @@ class HealthIcon extends FlxSprite
 				    var file:FlxAtlasFrames = Paths.getSparrowAtlas('icons/Scott Animated');
 					frames = file;
 					
-					animation.addByPrefix(char, 'Scott Icon', 27, true);
+					animation.addByPrefix(char, 'Scott Icon', 23, true);
 					animation.play(char);
+					
+					offsetY = 12;
+					offsetX = -8;
 		default:
 			var name:String = 'icons/' + char;
 			if(!Paths.fileExists('images/' + name + '.png', IMAGE)) name = 'icons/icon-' + char; //Older versions of psych engine's support
@@ -75,7 +78,7 @@ class HealthIcon extends FlxSprite
 
 			updateHitbox();
 			if (char == 'scott') {
-				setGraphicSize(Std.int(width * 0.6));
+				setGraphicSize(Std.int(width * 0.3));
 				updateHitbox();
 			}
 			initialWidth = width;
