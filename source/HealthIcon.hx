@@ -83,19 +83,13 @@ class HealthIcon extends FlxSprite
 		super.updateHitbox();
 		offset.x = iconOffsets[0];
 		offset.y = iconOffsets[1];
+	   }
+	    if (char == 'scott') {
+		setGraphicSize(Std.int(width * 0.6));
+		updateHitbox();
 	}
-	updateHitbox();
-	}
-}
-	 this.char = char;
-
-			updateHitbox();
-			if (char == 'scott') {
-				setGraphicSize(Std.int(width * 0.6));
-				updateHitbox();
-			}
-			initialWidth = width;
-			initialHeight = height;
+	initialWidth = width;
+	initialHeight = height;
 
 	public function getCharacter():String {
 		return char;
