@@ -188,6 +188,10 @@ class ChartingState extends MusicBeatState
 	public static var curQuant = 0;
 	var text:String = "";
 	public static var vortex:Bool = false;
+	
+	var key_space:FlxButton;
+	var key_shift:FlxButton;
+	
 	override function create()
 	{
 		if (PlayState.SONG != null)
@@ -372,6 +376,16 @@ class ChartingState extends MusicBeatState
 		add(zoomTxt);
 		
 		updateGrid();
+		
+		key_space = new FlxButton(60, 60, "");
+        key_space.loadGraphic(Paths.image("key_space")); //"assets/images/key_space.png"
+        key_space.alpha = 0.75;
+        add(key_space);
+        
+        key_shift = new FlxButton(60, 200, "");
+        key_shift.loadGraphic(Paths.image("key_shift")); //"assets/images/key_shift.png"
+        key_shift.alpha = 0.75;
+        add(key_shift);
 
 		#if mobileC
 		addVirtualPad(FULL, A_B);
@@ -1549,7 +1563,7 @@ class ChartingState extends MusicBeatState
 				}
 			}
 
-			if (FlxG.keys.justPressed.SPACE)
+			if (FlxG.keys.justPressed.SPACE#if mobile || key_space.justPressed#end)
 			{
 				if (FlxG.sound.music.playing)
 				{
@@ -1570,7 +1584,7 @@ class ChartingState extends MusicBeatState
 
 			if (FlxG.keys.justPressed.R)
 			{
-				if (FlxG.keys.pressed.SHIFT)
+				if (FlxG.keys.pressed.SHIFT #if mobile || key_shift.pressed #end)
 					resetSection(true);
 				else
 					resetSection();
