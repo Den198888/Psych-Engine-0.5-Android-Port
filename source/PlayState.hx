@@ -946,9 +946,6 @@ class PlayState extends MusicBeatState
 				camGame.setFilters([new ShaderFilter(vcr)]);
 
 				camHUD.setFilters([new ShaderFilter(vcr)]);
-			}
-
-			FlxG.camera.follow(camFollow, LOCKON, 0.06 * (30 / (cast(Lib.current.getChildAt(0), Main)).getFPS()));
 		}
 		generateSong(SONG.song);
 		#if LUA_ALLOWED
