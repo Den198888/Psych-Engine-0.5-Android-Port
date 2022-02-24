@@ -917,20 +917,6 @@ class PlayState extends MusicBeatState
 		generateSong(SONG.song);
 
 		trace('generated');
-
-		// add(strumLine);
-
-		camFollow = new FlxObject(0, 0, 1, 1);
-
-		camFollow.setPosition(camPos.x, camPos.y);
-
-		if (prevCamFollow != null)
-		{
-			camFollow = prevCamFollow;
-			prevCamFollow = null;
-		}
-
-		add(camFollow);
 		
 	    if (curSong.toLowerCase() == 'sunshine')
 		{
