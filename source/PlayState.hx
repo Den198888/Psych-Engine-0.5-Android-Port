@@ -908,7 +908,62 @@ class PlayState extends MusicBeatState
 		playerStrums = new FlxTypedGroup<StrumNote>();
 
 		// startCountdown();
+		
+		if (SONG.song == null)
+			trace('song is null???');
+		else
+			trace('song looks gucci');
 
+		generateSong(SONG.song);
+
+		trace('generated');
+
+		// add(strumLine);
+
+		camFollow = new FlxObject(0, 0, 1, 1);
+
+		camFollow.setPosition(camPos.x, camPos.y);
+
+		if (prevCamFollow != null)
+		{
+			camFollow = prevCamFollow;
+			prevCamFollow = null;
+		}
+
+		add(camFollow);
+		
+	    if (curSong.toLowerCase() == 'sunshine')
+		{
+			if (FlxG.save.data.vfx)
+			{
+				var vcr:VCRDistortionShader;
+				vcr = new VCRDistortionShader();
+
+				var daStatic:FlxSprite = new FlxSprite(0, 0);
+
+				daStatic.frames = Paths.getSparrowAtlas('daSTAT');
+
+				daStatic.setGraphicSize(FlxG.width, FlxG.height);
+
+				daStatic.alpha = 0.05;
+
+				daStatic.screenCenter();
+
+				daStatic.cameras = [camHUD];
+
+				daStatic.animation.addByPrefix('static', 'staticFLASH', 24, true);
+
+				add(daStatic);
+
+				daStatic.animation.play('static');
+
+				camGame.setFilters([new ShaderFilter(vcr)]);
+
+				camHUD.setFilters([new ShaderFilter(vcr)]);
+			}
+
+			FlxG.camera.follow(camFollow, LOCKON, 0.06 * (30 / (cast(Lib.current.getChildAt(0), Main)).getFPS()));
+		}
 		generateSong(SONG.song);
 		#if LUA_ALLOWED
 		for (notetype in noteTypeMap.keys())
