@@ -1254,7 +1254,8 @@ class PlayState extends MusicBeatState
 		}
 		songSpeed = value;
 		return value;
-	}
+	  }
+  }
 
 	public function addTextToDebug(text:String) {
 		#if LUA_ALLOWED
